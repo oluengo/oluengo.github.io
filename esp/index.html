@@ -64,6 +64,8 @@
 			.avatar     { grid-area: avatar; }
 			.title      { grid-area: title; font-weight: 700; font-size: 1.15rem; line-height: 1.2; }
 			.githuburl  { grid-area: url; color: var(--muted); font-size: .85rem; }
+			.githuburl a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+			.githuburl a:hover { color: var(--fg); }
 			.lang       { grid-area: lang; }
 			.lang a { color: inherit; }
 			.lang a:hover { color: var(--fg); }
@@ -166,7 +168,7 @@
 		<div class="header">
 			<div class="avatar"><img class="imgavatar" src="https://avatars.githubusercontent.com/u/209014680?s=400&u=87146627ea25a6fbe9816143fdd370d09fd145e5&v=4" alt="oluengo"></div>
 			<div class="title">oluengo</div>
-			<div class="githuburl">oluengo.github.io</div>
+			<div class="githuburl">oluengo.github.io · <a href="/blog/?lang=es">blog</a></div>
 			<div class="lang"><a href="/cat/" hreflang="ca" lang="ca">CAT</a> | <a href="/" hreflang="en" lang="en">ENG</a> | <span aria-current="page">ESP</span></div>
 			<div class="lightdark">
 				<button id="toggle-theme" type="button" aria-label="Cambiar tema" title="Cambiar tema">
@@ -193,7 +195,7 @@
 				<div class="appname"><img class="appicon" src="https://oluengo.github.io/mado/assets/img/nostrich.png" alt="">Mado</div>
 				<div class="appinfo">Tus publicaciones de Nostr en tu propia web</div>
 				<div class="appurl"><span class="textinfo" title="app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span><a href="https://oluengo.github.io/mado/?lang=es">oluengo.github.io/mado</a></div>
-				<div class="betaurl"><span class="textinfo" title="blog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></span><a href="https://oluengo.github.io/blog/?lang=es">oluengo.github.io/blog</a></div>
+				<div class="releases"><span class="textinfo" title="Versiones"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.2" fill="currentColor"/></svg></span><a href="https://github.com/oluengo/mado/releases">Versiones</a></div>
 				<div class="changelog"><span class="textinfo" title="Historial de cambios"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg></span><a href="https://github.com/oluengo/mado/blob/main/CHANGELOG.md">Historial de cambios</a></div>
 				<div class="repourl"><span class="textinfo" title="repo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></span><a href="https://github.com/oluengo/mado">github.com/oluengo/mado</a></div>
 				<div class="apptags"><span class="apptag">nostr</span><span class="apptag">nip-23</span><span class="apptag">nip-05</span><span class="apptag">blog</span><span class="apptag">web estática</span><span class="apptag">github pages</span><span class="apptag">multilingüe</span><span class="apptag">vanilla-js</span><span class="apptag">beta</span></div>
@@ -209,6 +211,9 @@
 				</a>
 				<a href="https://njump.me/npub1vuf2g6s0mcjr34lhkg2vvtj4x65w29xn28nznw9fhcqcpyr4zc9q6myguj" aria-label="Nostr" title="Nostr">
 					<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6" r="3"/><path d="M16.3 4.9 21 6.2l-4.6 1.3M11.4 8.2C10 12 8 14 8 22"/><circle cx="13.6" cy="5.6" r=".4" fill="currentColor"/></svg>
+				</a>
+				<a href="/blog/?lang=es" aria-label="Blog" title="Blog">
+					<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>
 				</a>
 			</div>
 			<div class="bitcoin">
