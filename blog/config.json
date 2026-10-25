@@ -15,9 +15,12 @@
   },
   "content": {
     "kinds": [
-      30023
+      30023,
+      1
     ],
-    "includeTags": [],
+    "includeTags": [
+      "Neverendstory"
+    ],
     "tagMode": "any",
     "excludeTags": [],
     "hideReplies": true,
@@ -25,18 +28,18 @@
     "maxPosts": 300
   },
   "site": {
-    "url": "https://oluengo.github.io/blog/",
+    "url": "https://oluengo.github.io/mado/",
     "title": "",
     "description": "",
     "logo": "",
     "fallbackAvatar": "",
     "useProfile": true,
+    "theme": "oceano",
+    "font": "sans",
     "colorMode": "auto",
     "modeToggle": true,
-    "layout": "list",
-    "theme": "violeta",
-    "font": "mono",
-    "lang": "es",
+    "layout": "timeline",
+    "lang": "auto",
     "langSwitch": false,
     "dateFormat": "long",
     "perPage": 10,
@@ -49,7 +52,7 @@
   },
   "nav": {
     "showAllTags": true,
-    "showAbout": true,
+    "showAbout": false,
     "sections": [],
     "links": []
   },
