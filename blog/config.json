@@ -60,5 +60,14 @@
     "cacheMinutes": 10,
     "timeoutMs": 7000,
     "verifySignatures": true
+  },
+  "interactions": {
+    "reactions": false,
+    "replies": false,
+    "replyList": false,
+    "zaps": false,
+    "quotes": false,
+    "reposts": false,
+    "inList": false
   }
 }
