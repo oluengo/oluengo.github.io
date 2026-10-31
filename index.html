@@ -185,27 +185,49 @@ function renderPosts() {
 	if (POSTS === null) { ul.innerHTML = `<li class="loading">${esc(I[L].loading)}</li>`; return; }
 	if (!POSTS.length) { ul.innerHTML = `<li class="loading">${esc(I[L].noPosts)}</li>`; return; }
 	const df = new Intl.DateTimeFormat(LOC[L], { day: "numeric", month: "short", year: "numeric" });
-	ul.innerHTML = POSTS.map(p => `<li><a href="/blog/?lang=${L}#/post/${encodeURIComponent(p.d)}"><time>${df.format(new Date(p.ts * 1000))}</time><div><div class="pt">${esc(p.title)}</div>${p.summary ? `<div class="ps">${esc(p.summary)}</div>` : ""}</div></a></li>`).join("");
+	ul.innerHTML = POSTS.map(p => `<li><a href="/blog/?lang=${L}#/post/${encodeURIComponent(p.slug)}"><time>${df.format(new Date(p.ts * 1000))}</time><div><div class="pt">${esc(p.title)}</div>${p.summary ? `<div class="ps">${esc(p.summary)}</div>` : ""}</div></a></li>`).join("");
+}
+const norm = t => String(t || "").trim().replace(/^#/, "").toLowerCase();
+function toPosts(events, c) {
+	const deleted = new Set();
+	events.forEach(e => { if (e.kind === 5) e.tags.forEach(t => { if (t[0] === "e" || t[0] === "a") deleted.add(t[1]); }); });
+	const map = new Map();
+	for (const e of events) {
+		if (e.kind === 5 || !c.kinds.includes(e.kind) || deleted.has(e.id)) continue;
+		const repl = e.kind >= 30000 && e.kind < 40000, key = repl ? `${e.kind}:${e.pubkey}:${Mado.tag(e, "d") || ""}` : e.id;
+		if (repl && deleted.has(key)) continue;
+		const prev = map.get(key); if (!prev || e.created_at > prev.created_at) map.set(key, e);
+	}
+	const inc = (c.includeTags || []).map(norm).filter(Boolean), exc = (c.excludeTags || []).map(norm).filter(Boolean);
+	return [...map.values()].map(e => {
+		const art = e.kind === 30023, d = Mado.tag(e, "d");
+		const tags = [...new Set(e.tags.filter(t => t[0] === "t" && t[1]).map(t => norm(t[1])))];
+		if (!art) for (const m of (e.content || "").matchAll(/(?:^|\s)#([\p{L}\p{N}_]+)/gu)) { const t = norm(m[1]); if (!tags.includes(t)) tags.push(t); }
+		const text = Mado.stripMd(e.content || "").replace(/\s+/g, " ").trim();
+		return {
+			slug: art && d ? d : e.id, tags,
+			title: art ? (Mado.tag(e, "title") || d) : (text.length > 90 ? text.slice(0, 88) + "…" : text),
+			summary: art ? (Mado.tag(e, "summary") || "") : "",
+			ts: +(Mado.tag(e, "published_at") || e.created_at),
+			reply: e.kind === 1 && e.tags.some(t => t[0] === "e" && t[3] !== "mention")
+		};
+	}).filter(p => {
+		if (c.hideReplies && p.reply) return false;
+		if (exc.some(t => p.tags.includes(t))) return false;
+		if (inc.length) return c.tagMode === "all" ? inc.every(t => p.tags.includes(t)) : inc.some(t => p.tags.includes(t));
+		return true;
+	}).sort((a, b) => b.ts - a.ts).slice(0, 3);
 }
 async function loadPosts() {
 	try {
-		const cfg = await (await fetch("/blog/config.json", { cache: "no-store" })).json();
-		const pk = Mado.npubToHex(cfg.author.npub);
-		const inc = ((cfg.content && cfg.content.includeTags) || []).map(t => String(t).toLowerCase());
-		const exc = ((cfg.content && cfg.content.excludeTags) || []).map(t => String(t).toLowerCase());
-		const evs = await Mado.query(cfg.relays, { authors: [pk], kinds: [30023], limit: 40 }, { timeout: 6000 });
-		const byD = new Map();
-		for (const e of evs) {
-			const d = Mado.tag(e, "d"); if (!d) continue;
-			const tags = e.tags.filter(t => t[0] === "t").map(t => String(t[1]).toLowerCase());
-			if (inc.length && !tags.some(t => inc.includes(t))) continue;
-			if (exc.length && tags.some(t => exc.includes(t))) continue;
-			const prev = byD.get(d); if (prev && prev.created_at >= e.created_at) continue;
-			byD.set(d, e);
-		}
-		POSTS = [...byD.values()].map(e => ({ d: Mado.tag(e, "d"), title: Mado.tag(e, "title") || Mado.tag(e, "d"), summary: Mado.tag(e, "summary") || "", ts: +(Mado.tag(e, "published_at") || e.created_at) }))
-			.sort((a, b) => b.ts - a.ts).slice(0, 5);
-	} catch (e) { POSTS = []; }
+		const cfg = Mado.merge(Mado.DEFAULTS, await (await fetch("/blog/config.json", { cache: "no-store" })).json());
+		const c = cfg.content, pk = Mado.npubToHex(cfg.author.npub);
+		const cached = Mado.store.get(`mado-cache:${pk}:${c.kinds.join(",")}:${c.maxPosts}`);
+		if (cached && cached.data) { POSTS = toPosts(cached.data, c); renderPosts(); }
+		const evs = await Mado.fetchMany(cfg.relays, { authors: [pk], kinds: [...new Set([...c.kinds, 5])] }, c.maxPosts, cfg.advanced.timeoutMs);
+		const own = evs.filter(e => e.pubkey === pk);
+		if (own.length || !POSTS) POSTS = toPosts(own, c);
+	} catch (e) { if (!POSTS) POSTS = []; }
 	renderPosts();
 }
 document.querySelectorAll("[data-lang]").forEach(b => b.addEventListener("click", () => {
