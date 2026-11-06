@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>oluengo</title>
-<meta name="description" content="Free, simple apps by oluengo: Usus, Mado and Wavestr. And notes on Nostr.">
+<meta name="description" content="Free, simple apps by oluengo: Usus, Mado and Wavestr.">
 <link rel="icon" href="https://avatars.githubusercontent.com/u/209014680?s=64&v=4">
 <style>
 @font-face { font-family: "Geist Mono"; font-weight: 400; font-display: swap; src: url(/fonts/geist-mono-400.woff2) format("woff2"); }
@@ -51,21 +51,15 @@ h2::before { content: "// "; opacity: .6; }
 .app .plat { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .45rem; }
 .app .go { color: var(--muted); font-size: 1.2rem; transition: transform .2s, color .2s; }
 .app:hover .go { color: var(--tint); transform: translateX(3px); }
-.posts { list-style: none; margin: 0 0 1rem; padding: 0; }
-.posts a { color: inherit; text-decoration: none !important; }
-.posts time { color: var(--muted); font-size: .78rem; }
-.posts .pt { font-weight: 700; }
-.posts a:hover .pt { color: var(--accent); }
-.posts .ht { color: var(--accent); font-weight: 400; }
-.posts .ps { color: var(--muted); font-size: .82rem; margin-top: .2rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.posts .loading { color: var(--muted); font-size: .85rem; padding: .8rem 0; }
 .links { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .links a { color: var(--muted); }
 .links a:hover { color: var(--fg); }
 #copied { font-size: .75rem; opacity: 0; transition: opacity .2s; }
 #copied.show { opacity: 1; }
 .license a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
-body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.6 var(--font); -webkit-text-size-adjust: 100%; }
+body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; background: var(--bg); color: var(--fg); font: 15px/1.6 var(--font); -webkit-text-size-adjust: 100%; }
+main { flex: 1; width: 100%; }
+header.top, footer { width: 100%; }
 body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 48px 48px; mask-image: radial-gradient(70% 45% at 50% 0%, #000, transparent); opacity: .55; }
 .wrap { max-width: 74rem; margin: 0 auto; padding: 0 1.25rem; }
 .top { display: flex; align-items: center; gap: 1rem; height: 4.5rem; }
@@ -83,17 +77,14 @@ body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-i
 @media (prefers-reduced-motion: reduce) { .hero h1 .cursor { animation: none; } }
 section { padding-bottom: 4rem; }
 .apps { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); }
-.posts { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); }
-.posts li:not(.loading) { border: 1px solid var(--line); border-radius: 14px; background: var(--card); transition: border-color .2s; }
-.posts li:not(.loading):hover { border-color: var(--accent); }
-.posts a { display: flex; flex-direction: column; gap: .5rem; padding: 1.1rem 1.2rem; height: 100%; }
-.more { font-size: .9rem; margin-top: .25rem; }
 footer { border-top: 1px solid var(--line); padding: 1.75rem 0 2.5rem; color: var(--muted); font-size: .8rem; }
 footer .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; }
 footer .links { margin-right: auto; }
 @media (max-width: 40rem) {
 	body { font-size: 14px; }
-	.top nav > a { display: none; }
+	.top nav > a:not(.bloglink) { display: none; }
+	.top nav { gap: .9rem; }
+	.top .me, .top nav > a { white-space: nowrap; }
 	.hero { padding: 2.5rem 0 2.5rem; }
 }
 
@@ -105,12 +96,6 @@ footer .links { margin-right: auto; }
 .app .name { font-size: 1.35rem; }
 .app .desc { font-size: .9rem; margin-top: .25rem; }
 .app .go { align-self: end; width: 2.4rem; height: 2.4rem; border-radius: 50%; display: grid; place-items: center; background: color-mix(in srgb, var(--tint) 14%, transparent); color: var(--tint); font-size: 1.1rem; }
-.posts { grid-template-columns: 1.4fr 1fr; grid-auto-rows: auto; }
-.posts li:first-child { grid-row: span 2; }
-.posts li:first-child a { justify-content: flex-end; padding: 1.75rem; min-height: 13rem; background: radial-gradient(120% 100% at 0% 0%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 60%); border-radius: 14px; }
-.posts li:first-child .pt { font-size: 1.5rem; line-height: 1.25; }
-.posts li:first-child .ps { -webkit-line-clamp: 4; font-size: .9rem; }
-@media (max-width: 48rem) { .posts { grid-template-columns: 1fr; } .posts li:first-child { grid-row: auto; } .posts li:first-child a { min-height: 0; } }
 </style>
 </head>
 <body>
@@ -139,11 +124,6 @@ footer .links { margin-right: auto; }
 		<h2 data-i="appsTitle"></h2>
 		<div class="apps" id="apps"></div>
 	</section>
-	<section>
-		<h2 data-i="blogTitle"></h2>
-		<ul class="posts" id="posts"><li class="loading" data-i="loading"></li></ul>
-		<div class="more"><a class="bloglink" href="/blog/" data-i="allPosts"></a> · <a href="https://njump.me/npub1vuf2g6s0mcjr34lhkg2vvtj4x65w29xn28nznw9fhcqcpyr4zc9q6myguj" data-i="profile"></a></div>
-	</section>
 </main>
 
 <footer>
@@ -161,8 +141,6 @@ footer .links { margin-right: auto; }
 	</div>
 </footer>
 
-<script src="/mado/assets/js/vendor/nostr-verify.js" defer></script>
-<script src="/mado/assets/js/core.js" defer></script>
 <script>
 const APPS = [
 	{ id: "usus", icon: "/usus/app/icon-192.png", plat: ["Web", "Android"], beta: false, tint: "#E8A33D" },
@@ -173,26 +151,26 @@ const I = {
 	en: {
 		theme: "Toggle theme",
 		intro: "Free, simple apps that respect your privacy. Built with AI, tested by humans.",
-		appsTitle: "apps", blogTitle: "latest notes", loading: "Loading notes from Nostr…", noPosts: "Couldn't load the notes right now.", allPosts: "All notes →", profile: "Nostr profile ↗", notes: "notes", notesCap: "Notes",
+		appsTitle: "apps", notes: "notes", notesCap: "Notes",
 		apps: { usus: "Calisthenics workout & habit tracker", mado: "Your Nostr posts on your own website", wavestr: "Online radio and Nostr live streams" },
 		made: "Built with AI · tested by humans", license: "MIT License", copied: "copied"
 	},
 	ca: {
 		theme: "Canvia el tema",
 		intro: "Apps lliures i senzilles que respecten la teva privacitat. Fetes amb IA, provades per humans.",
-		appsTitle: "apps", blogTitle: "darreres notes", loading: "Carregant notes de Nostr…", noPosts: "Ara mateix no s'han pogut carregar les notes.", allPosts: "Totes les notes →", profile: "Perfil a Nostr ↗", notes: "notes", notesCap: "Notes",
+		appsTitle: "apps", notes: "notes", notesCap: "Notes",
 		apps: { usus: "Registre d'entrenaments i hàbits", mado: "Les teves publicacions de Nostr a la teva web", wavestr: "Ràdio en línia i streams de Nostr" },
 		made: "Feta amb IA · provada per humans", license: "Llicència MIT", copied: "copiat"
 	},
 	es: {
 		theme: "Cambiar tema",
 		intro: "Apps libres y sencillas que respetan tu privacidad. Hechas con IA, probadas por humanos.",
-		appsTitle: "apps", blogTitle: "últimas notas", loading: "Cargando notas de Nostr…", noPosts: "Ahora mismo no se han podido cargar las notas.", allPosts: "Todas las notas →", profile: "Perfil en Nostr ↗", notes: "notas", notesCap: "Notas",
+		appsTitle: "apps", notes: "notas", notesCap: "Notas",
 		apps: { usus: "Registro de entrenos y hábitos", mado: "Tus publicaciones de Nostr en tu propia web", wavestr: "Radio online y streams de Nostr" },
 		made: "Hecha con IA · probada por humanos", license: "Licencia MIT", copied: "copiado"
 	}
 };
-const LANGS = ["ca", "es", "en"], LOC = { ca: "ca-ES", es: "es-ES", en: "en-GB" }, root = document.documentElement;
+const LANGS = ["ca", "es", "en"], root = document.documentElement;
 const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 function pickLang() {
 	const q = new URLSearchParams(location.search).get("lang");
@@ -201,7 +179,7 @@ function pickLang() {
 	const n = (navigator.languages || [navigator.language || ""]).map(x => String(x).slice(0, 2));
 	return n.find(x => LANGS.includes(x)) || "en";
 }
-let L, POSTS = null;
+let L;
 function render(lang) {
 	L = lang; const t = I[lang]; root.lang = lang;
 	document.querySelectorAll("[data-i]").forEach(el => { el.textContent = t[el.dataset.i]; });
@@ -210,57 +188,6 @@ function render(lang) {
 	document.getElementById("apps").innerHTML = APPS.map(a =>
 		`<a class="app app-${a.id}" style="--tint:${a.tint}" href="/${a.id}/?lang=${lang}"><div class="body"><img class="icon" src="${a.icon}" alt=""><div class="txt"><div class="name">${a.id[0].toUpperCase() + a.id.slice(1)}${a.beta ? '<span class="pill beta">beta</span>' : ""}</div><div class="desc">${esc(t.apps[a.id])}</div><div class="plat">${a.plat.map(p => `<span class="pill">${p}</span>`).join("")}</div></div><span class="go" aria-hidden="true">→</span></div></a>`).join("");
 	document.querySelectorAll("[data-lang]").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === lang));
-	renderPosts();
-}
-function renderPosts() {
-	const ul = document.getElementById("posts");
-	if (POSTS === null) { ul.innerHTML = `<li class="loading">${esc(I[L].loading)}</li>`; return; }
-	if (!POSTS.length) { ul.innerHTML = `<li class="loading">${esc(I[L].noPosts)}</li>`; return; }
-	const df = new Intl.DateTimeFormat(LOC[L], { day: "numeric", month: "short", year: "numeric" });
-	ul.innerHTML = POSTS.map(p => `<li><a href="/blog/?lang=${L}#/post/${encodeURIComponent(p.slug)}"><time>${df.format(new Date(p.ts * 1000))}</time><div><div class="pt">${esc(p.title).replace(/(^|\s)(#[\p{L}\p{N}_]+)/gu, '$1<span class="ht">$2</span>')}</div>${p.summary ? `<div class="ps">${esc(p.summary)}</div>` : ""}</div></a></li>`).join("");
-}
-const norm = t => String(t || "").trim().replace(/^#/, "").toLowerCase();
-function toPosts(events, c) {
-	const deleted = new Set();
-	events.forEach(e => { if (e.kind === 5) e.tags.forEach(t => { if (t[0] === "e" || t[0] === "a") deleted.add(t[1]); }); });
-	const map = new Map();
-	for (const e of events) {
-		if (e.kind === 5 || !c.kinds.includes(e.kind) || deleted.has(e.id)) continue;
-		const repl = e.kind >= 30000 && e.kind < 40000, key = repl ? `${e.kind}:${e.pubkey}:${Mado.tag(e, "d") || ""}` : e.id;
-		if (repl && deleted.has(key)) continue;
-		const prev = map.get(key); if (!prev || e.created_at > prev.created_at) map.set(key, e);
-	}
-	const inc = (c.includeTags || []).map(norm).filter(Boolean), exc = (c.excludeTags || []).map(norm).filter(Boolean);
-	return [...map.values()].map(e => {
-		const art = e.kind === 30023, d = Mado.tag(e, "d");
-		const tags = [...new Set(e.tags.filter(t => t[0] === "t" && t[1]).map(t => norm(t[1])))];
-		if (!art) for (const m of (e.content || "").matchAll(/(?:^|\s)#([\p{L}\p{N}_]+)/gu)) { const t = norm(m[1]); if (!tags.includes(t)) tags.push(t); }
-		const text = Mado.stripMd(String(e.content || "").replace(/(^|\s)#([\p{L}\p{N}_]+)/gu, "$1\u0001$2")).replace(/\u0001/g, "#").replace(/\s+/g, " ").trim();
-		return {
-			slug: art && d ? d : e.id, tags,
-			title: art ? (Mado.tag(e, "title") || d) : (text.length > 90 ? text.slice(0, 88) + "…" : text),
-			summary: art ? (Mado.tag(e, "summary") || "") : "",
-			ts: +(Mado.tag(e, "published_at") || e.created_at),
-			reply: e.kind === 1 && e.tags.some(t => t[0] === "e" && t[3] !== "mention")
-		};
-	}).filter(p => {
-		if (c.hideReplies && p.reply) return false;
-		if (exc.some(t => p.tags.includes(t))) return false;
-		if (inc.length) return c.tagMode === "all" ? inc.every(t => p.tags.includes(t)) : inc.some(t => p.tags.includes(t));
-		return true;
-	}).sort((a, b) => b.ts - a.ts).slice(0, 3);
-}
-async function loadPosts() {
-	try {
-		const cfg = Mado.merge(Mado.DEFAULTS, await (await fetch("/blog/config.json", { cache: "no-store" })).json());
-		const c = cfg.content, pk = Mado.npubToHex(cfg.author.npub);
-		const cached = Mado.store.get(`mado-cache:${pk}:${c.kinds.join(",")}:${c.maxPosts}`);
-		if (cached && cached.data) { POSTS = toPosts(cached.data, c); renderPosts(); }
-		const evs = await Mado.fetchMany(cfg.relays, { authors: [pk], kinds: [...new Set([...c.kinds, 5])] }, c.maxPosts, cfg.advanced.timeoutMs);
-		const own = evs.filter(e => e.pubkey === pk);
-		if (own.length || !POSTS) POSTS = toPosts(own, c);
-	} catch (e) { if (!POSTS) POSTS = []; }
-	renderPosts();
 }
 document.querySelectorAll("[data-lang]").forEach(b => b.addEventListener("click", () => {
 	try { localStorage.setItem("lang", b.dataset.lang); } catch (e) {}
@@ -281,7 +208,6 @@ document.querySelectorAll("[data-copy]").forEach(a => a.addEventListener("click"
 	ct = setTimeout(() => copied.classList.remove("show"), ok ? 1800 : 6000);
 }));
 render(pickLang());
-window.addEventListener("load", () => { if (window.Mado) loadPosts(); else { POSTS = []; renderPosts(); } });
 </script>
 </body>
 </html>
