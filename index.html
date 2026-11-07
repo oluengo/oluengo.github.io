@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>oluengo</title>
-<meta name="description" content="Free, simple apps by oluengo: Usus, Mado and Wavestr.">
+<meta name="description" content="Free, simple apps by oluengo: Usus, Mado, Wavestr and Tansu.">
 <link rel="icon" href="https://avatars.githubusercontent.com/u/209014680?s=64&v=4">
 <style>
 @font-face { font-family: "Geist Mono"; font-weight: 400; font-display: swap; src: url(/fonts/geist-mono-400.woff2) format("woff2"); }
@@ -88,7 +88,7 @@ footer .links { margin-right: auto; }
 	.hero { padding: 2.5rem 0 2.5rem; }
 }
 
-.apps { grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); }
+.apps { grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr)); }
 .app { background: linear-gradient(160deg, color-mix(in srgb, var(--tint) 22%, var(--card)) 0%, var(--card) 62%); }
 .app .body { grid-template-columns: 1fr auto; grid-template-rows: auto auto; align-items: end; padding: 1.5rem; gap: 1.4rem .75rem; min-height: 15rem; }
 .app-mado .icon { background: var(--card); padding: .55rem; border: 1px solid var(--line); }
@@ -145,28 +145,29 @@ footer .links { margin-right: auto; }
 const APPS = [
 	{ id: "usus", icon: "/usus/app/icon-192.png", plat: ["Web", "Android"], beta: false, tint: "#E8A33D" },
 	{ id: "mado", icon: "/mado/assets/img/logo.svg", plat: ["Web", "Nostr"], beta: false, tint: "#7B3FE4" },
-	{ id: "wavestr", icon: "/img/wavestr.svg", plat: ["Android", "Nostr"], beta: false, tint: "#FB7185" }
+	{ id: "wavestr", icon: "/img/wavestr.svg", plat: ["Web", "Android", "Nostr"], beta: false, tint: "#FB7185" },
+	{ id: "tansu", icon: "/tansu/app/icon.svg", plat: ["Web", "Android", "Nostr"], beta: true, tint: "#5468D4" }
 ];
 const I = {
 	en: {
 		theme: "Toggle theme",
 		intro: "Free, simple apps that respect your privacy. Built with AI, tested by humans.",
 		appsTitle: "apps", notes: "notes", notesCap: "Notes",
-		apps: { usus: "Calisthenics workout & habit tracker", mado: "Your Nostr posts on your own website", wavestr: "Online radio and Nostr live streams" },
+		apps: { usus: "Calisthenics workout & habit tracker", mado: "Your Nostr posts on your own website", wavestr: "Online radio and Nostr live streams", tansu: "Your private Nostr data, in folders" },
 		made: "Built with AI · tested by humans", license: "MIT License", copied: "copied"
 	},
 	ca: {
 		theme: "Canvia el tema",
 		intro: "Apps lliures i senzilles que respecten la teva privacitat. Fetes amb IA, provades per humans.",
 		appsTitle: "apps", notes: "notes", notesCap: "Notes",
-		apps: { usus: "Registre d'entrenaments i hàbits", mado: "Les teves publicacions de Nostr a la teva web", wavestr: "Ràdio en línia i streams de Nostr" },
+		apps: { usus: "Registre d'entrenaments i hàbits", mado: "Les teves publicacions de Nostr a la teva web", wavestr: "Ràdio en línia i streams de Nostr", tansu: "Les teves dades privades de Nostr, en carpetes" },
 		made: "Feta amb IA · provada per humans", license: "Llicència MIT", copied: "copiat"
 	},
 	es: {
 		theme: "Cambiar tema",
 		intro: "Apps libres y sencillas que respetan tu privacidad. Hechas con IA, probadas por humanos.",
 		appsTitle: "apps", notes: "notas", notesCap: "Notas",
-		apps: { usus: "Registro de entrenos y hábitos", mado: "Tus publicaciones de Nostr en tu propia web", wavestr: "Radio online y streams de Nostr" },
+		apps: { usus: "Registro de entrenos y hábitos", mado: "Tus publicaciones de Nostr en tu propia web", wavestr: "Radio online y streams de Nostr", tansu: "Tus datos privados de Nostr, en carpetas" },
 		made: "Hecha con IA · probada por humanos", license: "Licencia MIT", copied: "copiado"
 	}
 };
