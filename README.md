@@ -1,41 +1,38 @@
 # oluengo.github.io
 
-Web personal de oluengo: apps libres y sencillas, y un blog sobre Nostr.
-*Personal website of oluengo: free, simple apps and a Nostr-powered blog.*
+Personal website of oluengo: free, simple apps and a Nostr-powered blog.
 
 **<https://oluengo.github.io>** · Nostr: `_@oluengo.github.io`
 
 ## Apps
 
-| App | Qué es · What it is | Nostr |
+| App | What it is | Nostr |
 |---|---|---|
-| [Mado](https://oluengo.github.io/mado/) | Tus publicaciones de Nostr en tu propia web · Your Nostr posts on your own website | Hecha sobre Nostr · Built on Nostr |
-| [Tansu](https://oluengo.github.io/tansu/) | Explorador de los datos de tus apps en Nostr · Explorer for your apps' data on Nostr | Hecha sobre Nostr · Built on Nostr |
-| [Wavestr](https://oluengo.github.io/wavestr/) | Radio online y streams de Nostr · Online radio and Nostr live streams | Opcional · Optional |
-| [Usus](https://oluengo.github.io/usus/) | Registro de entrenos y hábitos · Workout and habit tracker | Opcional · Optional |
+| [Mado](https://oluengo.github.io/mado/) | Your Nostr posts on your own website | Built on Nostr |
+| [Tansu](https://oluengo.github.io/tansu/) | Explorer for your apps' data on Nostr | Built on Nostr |
+| [Wavestr](https://oluengo.github.io/wavestr/) | Online radio and Nostr live streams | Optional |
+| [Usus](https://oluengo.github.io/usus/) | Calisthenics workout and habit tracker | Optional |
 
-Cada app tiene su propio repositorio y su página en `/<app>/`. *Each app has its own repository and page at `/<app>/`.*
+Each app has its own repository and its page at `/<app>/`. The apps themselves are translated; the website is in English.
 
-## Estructura · Structure
+## Structure
 
 ```
-index.html              portada en inglés · English home page
-cat/, esp/              portada en catalán y castellano · Catalan and Spanish home
-blog/index.html         blog: instancia ligera de Mado · lightweight Mado instance
-blog/admin/             configuración del blog (entra con extensión, Amber o bunker)
+index.html              home page
+cat/, esp/              old language URLs, redirect to /
+blog/index.html         blog: a lightweight Mado instance
+blog/admin/             blog settings (sign in with an extension, Amber or a bunker)
 .well-known/nostr.json  NIP-05: _@oluengo.github.io
-fonts/, img/            tipografía Geist Mono (OFL) e iconos · typeface and icons
+fonts/, img/            Geist Mono typeface (OFL) and icons
 ```
 
 ## Blog
 
-El blog usa [Mado](https://github.com/oluengo/mado): el código se carga desde `/mado/`, el npub está en `blog/index.html` y la configuración vive en Nostr (NIP-78, `d` = `mado:oluengo.github.io/blog/`). Para cambiarla: [`/blog/admin/`](https://oluengo.github.io/blog/admin/) → entrar → **Guardar**. No hay `config.json`.
+The blog runs on [Mado](https://github.com/oluengo/mado): code is loaded from `/mado/`, the npub is in `blog/index.html` and the settings live on Nostr (NIP-78, `d` = `mado:oluengo.github.io/blog/`). To change them: [`/blog/admin/`](https://oluengo.github.io/blog/admin/) → sign in → **Save**. There is no `config.json`.
 
-*The blog runs on Mado: code from `/mado/`, npub in `blog/index.html`, settings stored on Nostr. Edit them at `/blog/admin/` (sign in, then **Save**). There is no `config.json`.*
+## Credits
 
-## Créditos · Credits
-
-- Icono de Nostr · Nostr icon: **Purple Nostrich Icon** by SovrynMatt — <https://github.com/SovrynMatt/Nostr-Website-Button-Design>
+- Nostr icon: **Purple Nostrich Icon** by SovrynMatt — <https://github.com/SovrynMatt/Nostr-Website-Button-Design>
 - Geist Mono (Vercel), SIL Open Font License — `fonts/OFL.txt`
 
 [MIT License](LICENSE)
